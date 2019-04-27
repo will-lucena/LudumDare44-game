@@ -17,18 +17,20 @@ public class StatusController : MonoBehaviour
     private void Start()
     {
         GameController.notifyCardEffect += updateStatus;
-        this.progressBar.value = 0.5f;
-        this.currentValue = maxValue / 2;
+        GameController.requestResult += setResult;
+        progressBar.value = 0.5f;
+        currentValue = GameController.getMaxStatusValue() / 2;
+        updateBar();
     }
 
     private void updateStatus(Status buffType, Status nerfType, int buff, int nerf)
     {
         if (status.Equals(buffType))
         {
-            this.currentValue += buff;
+            currentValue += buff;
         } else if (status.Equals(nerfType))
         {
-            this.currentValue -= nerf;
+            currentValue -= nerf;
         } else
         {
             return;
@@ -39,7 +41,12 @@ public class StatusController : MonoBehaviour
 
     private void updateBar()
     {
-        this.progressBar.value = (float)((float)this.currentValue / (float)this.maxValue);
-        foreground.color = Color.Lerp(Color.red, Color.green, this.progressBar.value);
+        progressBar.value = (float)((float)currentValue / (float)maxValue);
+        foreground.color = Color.Lerp(Color.red, Color.green, progressBar.value);
+    }
+
+    private void setResult()
+    {
+        GameController.results[status] = currentValue;
     }
 }

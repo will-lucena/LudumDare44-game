@@ -13,13 +13,12 @@ public class ProgressController : MonoBehaviour
     private void Start()
     {
         GameController.endTurn += updateProgress;
-        this.totalTurns = GameController.getTotalTurns();
-        Debug.Log(totalTurns);
+        totalTurns = GameController.getTotalTurns();
     }
 
     public void updateProgress(int amount)
     {
-        this.currentTurn += amount;
-        this.progressBar.value = ((float) this.currentTurn / (float)this.totalTurns);
+        currentTurn += amount;
+        progressBar.value = ((float) currentTurn / (float)totalTurns);
     }
 }

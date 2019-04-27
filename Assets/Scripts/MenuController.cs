@@ -12,35 +12,35 @@ public class MenuController : MonoBehaviour
 
     private void Start()
     {
-        this.actualMenu = this.mainGO;
+        actualMenu = mainGO;
     }
 
     public void goToAbout()
     {
-        this.actualMenu.SetActive(false);
-        this.actualMenu = this.aboutGO;
-        this.aboutGO.SetActive(true);
+        actualMenu.SetActive(false);
+        actualMenu = aboutGO;
+        aboutGO.SetActive(true);
     }
 
     public void goToSettings()
     {
-        this.actualMenu.SetActive(false);
-        this.actualMenu = this.settingsGO;
-        this.settingsGO.SetActive(true);
+        actualMenu.SetActive(false);
+        actualMenu = settingsGO;
+        settingsGO.SetActive(true);
     }
 
     public void goToMain()
     {
-        this.actualMenu.SetActive(false);
-        this.actualMenu = this.mainGO;
-        this.mainGO.SetActive(true);
+        actualMenu.SetActive(false);
+        actualMenu = mainGO;
+        mainGO.SetActive(true);
     }
 
     public void goToHow()
     {
-        this.actualMenu.SetActive(false);
-        this.actualMenu = this.howGO;
-        this.howGO.SetActive(true);
+        actualMenu.SetActive(false);
+        actualMenu = howGO;
+        howGO.SetActive(true);
     }
 
     public void goToGame()

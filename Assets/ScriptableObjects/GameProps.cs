@@ -6,4 +6,5 @@ using UnityEngine;
 public class GameProps : ScriptableObject
 {
     public int numberOfTurns;
+    public int maxStatusValue;
 }

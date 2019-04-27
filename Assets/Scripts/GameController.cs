@@ -2,37 +2,93 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     
     public static Action<int> endTurn;
     public static Action<Status, Status, int, int> notifyCardEffect;
+    public static Action requestResult;
+    public static Hashtable results;
 
     private static GameProps currentProps;
-    [SerializeField] private Stack<Card> cards; 
+    private Stack<Card> cards;
+    private Card currentCard;
+
+    [SerializeField] private TextMeshProUGUI descriptionLabel;
+    [SerializeField] private TextMeshProUGUI rightButton;
+    [SerializeField] private TextMeshProUGUI leftButton;
+    [SerializeField] private DragHandler rightSide;
+    [SerializeField] private DragHandler leftSide;
 
     private void Awake()
     {
+        results = new Hashtable();
+        rightSide.overEvent += rightAction;
+        leftSide.overEvent += leftAction;
+
+        results.Add(Status.Healthy, 0);
+        results.Add(Status.Social, 0);
+        results.Add(Status.Money, 0);
+        results.Add(Status.Knowledge, 0);
+
         currentProps = Resources.Load<GameProps>("Props/default");
         Card[] array = Resources.LoadAll<Card>("Cards/");
-        this.cards = new Stack<Card>();
-        foreach (Card card in array)
+        cards = new Stack<Card>();
+        while (cards.Count < currentProps.numberOfTurns)
         {
-            this.cards.Push(card);
+            cards.Push(array[UnityEngine.Random.Range(1, 100) % currentProps.numberOfTurns]);
         }
+    }
+
+    private void Start()
+    {
+        startTurn();
+    }
+
+    private void startTurn()
+    {
+        currentCard = cards.Pop();
+        descriptionLabel.text = currentCard.description;
+        rightButton.text = currentCard.buffType.ToString();
+        leftButton.text = currentCard.nerfType.ToString();
     }
 
     public void nextTurn()
     {
-        Card currentCard = cards.Pop();
-        notifyCardEffect?.Invoke(currentCard.buffType, currentCard.nerfType, currentCard.buffValue, currentCard.nerfValue);
         endTurn?.Invoke(1);
+        if (cards.Count == 0)
+        {
+            requestResult?.Invoke();
+            SceneManager.LoadScene("End game");
+        } else {
+            startTurn();
+        }
+        
+    }
+
+    public void leftAction()
+    {
+        notifyCardEffect?.Invoke(currentCard.nerfType, currentCard.buffType, currentCard.nerfValue, currentCard.buffValue);
+        nextTurn();
+    }
+
+    public void rightAction()
+    {
+        notifyCardEffect?.Invoke(currentCard.buffType, currentCard.nerfType, currentCard.buffValue, currentCard.nerfValue);
+        nextTurn();
     }
 
     public static int getTotalTurns()
     {
         return currentProps.numberOfTurns;
+    }
+
+    public static int getMaxStatusValue()
+    {
+        return currentProps.maxStatusValue;
     }
 }
 
