@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndGameController : MonoBehaviour
 {
@@ -16,5 +17,12 @@ public class EndGameController : MonoBehaviour
         moneyLabel.text = "Money: " + GameController.results[Status.Money];
         socialLabel.text = "Social: " + GameController.results[Status.Social];
         knowledgeLabel.text = "Knowledge: " + GameController.results[Status.Knowledge];
+
+        Invoke("goToMenu", 3);
+    }
+
+    public void goToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
