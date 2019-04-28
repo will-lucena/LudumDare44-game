@@ -7,4 +7,6 @@ public class GameProps : ScriptableObject
 {
     public int numberOfTurns;
     public int maxStatusValue;
+    public int initialMoney;
+    public int baseCost;
 }

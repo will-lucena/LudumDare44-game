@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfTurns: 5
   maxStatusValue: 4
+  initialMoney: 350
+  baseCost: 100

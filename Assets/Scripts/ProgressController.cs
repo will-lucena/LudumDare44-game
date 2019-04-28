@@ -12,8 +12,17 @@ public class ProgressController : MonoBehaviour
 
     private void Start()
     {
-        GameController.endTurn += updateProgress;
         totalTurns = GameController.getTotalTurns();
+    }
+
+    private void OnEnable()
+    {
+        GameController.endTurn += updateProgress;
+    }
+
+    private void OnDisable()
+    {
+        GameController.endTurn -= updateProgress;
     }
 
     public void updateProgress(int amount)

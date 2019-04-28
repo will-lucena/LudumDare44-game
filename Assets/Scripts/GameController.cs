@@ -26,9 +26,6 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         results = new Hashtable();
-        rightSide.overEvent += rightAction;
-        leftSide.overEvent += leftAction;
-
         results.Add(Status.Healthy, 0);
         results.Add(Status.Social, 0);
         results.Add(Status.Money, 0);
@@ -46,6 +43,24 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         startTurn();
+    }
+
+    private void OnDestroy()
+    {
+        rightSide.overEvent -= rightAction;
+        leftSide.overEvent -= leftAction;
+    }
+
+    private void OnEnable()
+    {
+        rightSide.overEvent += rightAction;
+        leftSide.overEvent += leftAction;
+    }
+
+    private void OnDisable()
+    {
+        rightSide.overEvent -= rightAction;
+        leftSide.overEvent -= leftAction;
     }
 
     private void startTurn()
@@ -89,6 +104,16 @@ public class GameController : MonoBehaviour
     public static int getMaxStatusValue()
     {
         return currentProps.maxStatusValue;
+    }
+
+    public static int getBaseValue()
+    {
+        return currentProps.baseCost;
+    }
+
+    public static int getInitialMoney()
+    {
+        return currentProps.initialMoney;
     }
 }
 
