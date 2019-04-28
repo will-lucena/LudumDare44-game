@@ -9,6 +9,7 @@ public class GameProps : ScriptableObject
     public int maxStatusValue;
     public int initialMoney;
     public int baseCost;
+    public float saveBonusMultiplier;
 
     public Color healthColor;
     public Color knowledgeColor;

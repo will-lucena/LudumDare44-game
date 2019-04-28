@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
 
         currentProps = Resources.Load<GameProps>("Props/default");
         Card[] array = Resources.LoadAll<Card>("Cards/");
+
         cards = new Stack<Card>();
         while (cards.Count < currentProps.numberOfTurns)
         {
@@ -168,6 +169,11 @@ public class GameController : MonoBehaviour
     public static int getInitialMoney()
     {
         return currentProps.initialMoney;
+    }
+
+    public static float getSaveMultiplier()
+    {
+        return currentProps.saveBonusMultiplier;
     }
 }
 

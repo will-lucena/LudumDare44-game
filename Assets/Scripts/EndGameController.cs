@@ -39,7 +39,12 @@ public class EndGameController : MonoBehaviour
         energy.text = "$ " + (baseValue / 8).ToString("F2");
         internet.text = "$ " + (baseValue / 3).ToString("F2");
 
-        cash.text = "$ " + (GameController.getInitialMoney()).ToString("F2");
+        Debug.Log("Times saved: " + (int)GameController.results[Status.Money]);
+        Debug.Log("final save bonus: " + GameController.getSaveMultiplier() * (int)GameController.results[Status.Money]);
+
+        float finalCash = GameController.getInitialMoney() + (GameController.getInitialMoney() * GameController.getSaveMultiplier() * (int) GameController.results[Status.Money]);
+
+        cash.text = "$ " + (finalCash).ToString("F2");
         total.text = "$ " + (debit.Sum()).ToString("F2");
 
         Invoke("goToMenu", 7);

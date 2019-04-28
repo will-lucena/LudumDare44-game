@@ -41,15 +41,18 @@ public class StatusController : MonoBehaviour
             {
                 Debug.Log(status);
                 currentValue += buff;
+                GameController.results[status] = ((int)GameController.results[status]) + 1;
             } else if (status.Equals(buffType))
             {
                 Debug.Log(status);
                 currentValue -= buff;
+                GameController.results[status] = ((int)GameController.results[status]) - 1;
             }
             else if (status.Equals(nerfType))
             {
                 Debug.Log(status);
                 currentValue -= nerf;
+                GameController.results[status] = ((int)GameController.results[status]) - 1;
             }
             else
             {
@@ -60,10 +63,12 @@ public class StatusController : MonoBehaviour
             if (status.Equals(buffType))
             {
                 currentValue += buff;
+                GameController.results[status] = ((int) GameController.results[status]) + 1;
             }
             else if (status.Equals(nerfType))
             {
                 currentValue -= nerf;
+                GameController.results[status] = ((int)GameController.results[status]) - 1;
             }
             else
             {
