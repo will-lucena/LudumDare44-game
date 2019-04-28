@@ -20,11 +20,14 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI descriptionLabel;
     [SerializeField] private Image typeOverlay;
-    [SerializeField] private TextMeshProUGUI rightButton;
-    [SerializeField] private TextMeshProUGUI leftButton;
+    [SerializeField] private Image rightButton;
+    [SerializeField] private Image leftButton;
+    [SerializeField] private Image rightButtonContent;
+    [SerializeField] private Image leftButtonContent;
     [SerializeField] private DragHandler rightSide;
     [SerializeField] private DragHandler leftSide;
     [SerializeField] private DragHandler downSide;
+    [SerializeField] private Sprite[] icons; 
 
     private void Awake()
     {
@@ -79,8 +82,13 @@ public class GameController : MonoBehaviour
     {
         currentCard = cards.Pop();
         descriptionLabel.text = currentCard.description;
-        rightButton.text = currentCard.buffType.ToString();
-        leftButton.text = currentCard.nerfType.ToString();
+        rightButton.sprite = icons[(int)currentCard.buffType];
+        leftButton.sprite = icons[(int)currentCard.nerfType];
+
+        rightButtonContent.sprite = icons[(int)currentCard.buffType];
+        leftButtonContent.sprite = icons[(int)currentCard.nerfType];
+        rightButtonContent.color = getColor(currentCard.buffType);
+        leftButtonContent.color = getColor(currentCard.nerfType);
     }
 
     public void nextTurn()
@@ -98,16 +106,19 @@ public class GameController : MonoBehaviour
 
     public void rightOverlay()
     {
+        typeOverlay.sprite = icons[(int)currentCard.buffType];
         typeOverlay.color = getColor(currentCard.buffType);
     }
 
     public void leftOverlay()
     {
+        typeOverlay.sprite = icons[(int)currentCard.nerfType];
         typeOverlay.color = getColor(currentCard.nerfType);
     }
 
     public void downOverlay()
     {
+        typeOverlay.sprite = icons[(int)Status.Money];
         typeOverlay.color = getColor(Status.Money);
     }
 

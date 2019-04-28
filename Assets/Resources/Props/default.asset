@@ -16,7 +16,8 @@ MonoBehaviour:
   maxStatusValue: 4
   initialMoney: 350
   baseCost: 100
-  healthColor: {r: 0.35517535, g: 0.8207547, b: 0.16647384, a: 1}
-  knowledgeColor: {r: 0.6110276, g: 0.0734247, b: 0.6226415, a: 1}
+  saveBonusMultiplier: 0.05
+  healthColor: {r: 0.8490566, g: 0.14017442, b: 0.15391667, a: 1}
+  knowledgeColor: {r: 0.14703593, g: 0.8018868, b: 0.094562106, a: 1}
   moneyColor: {r: 0.7830189, g: 0.69661856, b: 0.09972411, a: 1}
   socialColor: {r: 0.027723404, g: 0.29294512, b: 0.8396226, a: 1}

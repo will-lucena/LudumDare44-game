@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class StatusController : MonoBehaviour
 {
     [SerializeField] private Status status;
-    [SerializeField] private Slider progressBar;
     [SerializeField] private Color maxColor;
     [SerializeField] private Color minColor;
     [SerializeField] private Image foreground;
 
     private int currentValue;
-    [SerializeField] private int maxValue;
+    private int maxValue;
 
     private void Start()
     {
-        progressBar.value = 0.5f;
-        currentValue = GameController.getMaxStatusValue() / 2;
+        foreground.fillAmount = 0.5f;
+        maxValue = GameController.getMaxStatusValue();
+        currentValue = maxValue / 2;
         updateBar();
     }
 
@@ -80,10 +80,11 @@ public class StatusController : MonoBehaviour
 
     private void updateBar()
     {
-        progressBar.value = (float)((float)currentValue / (float)maxValue);
+        float fillAmount = (float)((float)currentValue / (float)maxValue);
+        foreground.fillAmount = fillAmount > 1? 1 : fillAmount;
         if (foreground)
         {
-            foreground.color = Color.Lerp(Color.red, Color.green, progressBar.value);
+            foreground.color = Color.Lerp(minColor, maxColor, foreground.fillAmount);
         }
     }
 
