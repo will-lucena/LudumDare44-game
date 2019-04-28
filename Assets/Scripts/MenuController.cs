@@ -9,38 +9,48 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject settingsGO;
 
     private GameObject actualMenu;
+    private GameObject lastMenu;
+
+    private void OnEnable()
+    {
+        if (lastMenu == gameObject)
+        {
+            Debug.Log(lastMenu);
+        }
+    }
 
     private void Start()
     {
         actualMenu = mainGO;
+        SlideAnimationController.notifySlideEnd += startSlideIn;
     }
 
     public void goToAbout()
     {
-        actualMenu.SetActive(false);
+        lastMenu = actualMenu;
+        actualMenu.GetComponent<Animator>().SetTrigger("slide out");
         actualMenu = aboutGO;
-        aboutGO.SetActive(true);
     }
 
     public void goToSettings()
     {
-        actualMenu.SetActive(false);
+        lastMenu = actualMenu;
+        actualMenu.GetComponent<Animator>().SetTrigger("slide out");
         actualMenu = settingsGO;
-        settingsGO.SetActive(true);
     }
 
     public void goToMain()
     {
-        actualMenu.SetActive(false);
+        lastMenu = actualMenu;
+        actualMenu.GetComponent<Animator>().SetTrigger("slide out");
         actualMenu = mainGO;
-        mainGO.SetActive(true);
     }
 
     public void goToHow()
     {
-        actualMenu.SetActive(false);
+        lastMenu = actualMenu;
+        actualMenu.GetComponent<Animator>().SetTrigger("slide out");
         actualMenu = howGO;
-        howGO.SetActive(true);
     }
 
     public void goToGame()
@@ -52,5 +62,13 @@ public class MenuController : MonoBehaviour
     {
         Debug.Log("quit");
         Application.Quit();
+    }
+
+    private void startSlideIn(GameObject obj)
+    {
+        if (obj == lastMenu)
+        {
+            actualMenu.GetComponent<Animator>().SetTrigger("slide in");
+        }        
     }
 }
