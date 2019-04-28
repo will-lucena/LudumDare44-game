@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class CardSwipe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public static System.Action defaultOverlay;
     private float offsetX;
     private float offsetY;
 
@@ -23,6 +24,15 @@ public class CardSwipe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         Vector2 newPos = new Vector2(eventData.position.x + offsetX, eventData.position.y + offsetY);
         transform.position = newPos;
+        DragHandler droppedRegion = eventData.pointerCurrentRaycast.gameObject.GetComponent<DragHandler>();
+
+        if (droppedRegion)
+        {
+            droppedRegion.overEvent?.Invoke();
+        } else
+        {
+            defaultOverlay?.Invoke();
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -31,7 +41,7 @@ public class CardSwipe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         if (droppedRegion)
         {
-            droppedRegion.overEvent?.Invoke();
+            droppedRegion.dropEvent?.Invoke();
         }
         transform.position = originalPos;
     }

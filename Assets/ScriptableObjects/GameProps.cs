@@ -9,4 +9,9 @@ public class GameProps : ScriptableObject
     public int maxStatusValue;
     public int initialMoney;
     public int baseCost;
+
+    public Color healthColor;
+    public Color knowledgeColor;
+    public Color moneyColor;
+    public Color socialColor;
 }

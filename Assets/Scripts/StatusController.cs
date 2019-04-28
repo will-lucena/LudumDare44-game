@@ -23,38 +23,53 @@ public class StatusController : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("enable");
         GameController.notifyCardEffect += updateStatus;
         GameController.requestResult += setResult;
     }
 
     private void OnDisable()
     {
-        Debug.Log("disable");
         GameController.notifyCardEffect -= updateStatus;
         GameController.requestResult -= setResult;
     }
 
-    private void OnDestroy()
+    private void updateStatus(Status buffType, Status nerfType, int buff, int nerf, bool saveOption)
     {
-        Debug.Log("destroy");
-        GameController.notifyCardEffect += updateStatus;
-        GameController.requestResult += setResult;
-    }
-
-    private void updateStatus(Status buffType, Status nerfType, int buff, int nerf)
-    {
-        if (status.Equals(buffType))
+        if (saveOption)
         {
-            currentValue += buff;
-        } else if (status.Equals(nerfType))
-        {
-            currentValue -= nerf;
+            if (status.Equals(Status.Money))
+            {
+                Debug.Log(status);
+                currentValue += buff;
+            } else if (status.Equals(buffType))
+            {
+                Debug.Log(status);
+                currentValue -= buff;
+            }
+            else if (status.Equals(nerfType))
+            {
+                Debug.Log(status);
+                currentValue -= nerf;
+            }
+            else
+            {
+                return;
+            }
         } else
         {
-            return;
+            if (status.Equals(buffType))
+            {
+                currentValue += buff;
+            }
+            else if (status.Equals(nerfType))
+            {
+                currentValue -= nerf;
+            }
+            else
+            {
+                return;
+            }
         }
-
         updateBar();
     }
 

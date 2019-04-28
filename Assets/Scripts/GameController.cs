@@ -4,12 +4,13 @@ using UnityEngine;
 using System;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     
     public static Action<int> endTurn;
-    public static Action<Status, Status, int, int> notifyCardEffect;
+    public static Action<Status, Status, int, int, bool> notifyCardEffect;
     public static Action requestResult;
     public static Hashtable results;
 
@@ -18,10 +19,12 @@ public class GameController : MonoBehaviour
     private Card currentCard;
 
     [SerializeField] private TextMeshProUGUI descriptionLabel;
+    [SerializeField] private Image typeOverlay;
     [SerializeField] private TextMeshProUGUI rightButton;
     [SerializeField] private TextMeshProUGUI leftButton;
     [SerializeField] private DragHandler rightSide;
     [SerializeField] private DragHandler leftSide;
+    [SerializeField] private DragHandler downSide;
 
     private void Awake()
     {
@@ -45,22 +48,30 @@ public class GameController : MonoBehaviour
         startTurn();
     }
 
-    private void OnDestroy()
-    {
-        rightSide.overEvent -= rightAction;
-        leftSide.overEvent -= leftAction;
-    }
-
     private void OnEnable()
     {
-        rightSide.overEvent += rightAction;
-        leftSide.overEvent += leftAction;
+        rightSide.overEvent += rightOverlay;
+        rightSide.dropEvent += rightAction;
+
+        leftSide.overEvent += leftOverlay;
+        leftSide.dropEvent += leftAction;
+
+        downSide.overEvent += downOverlay;
+        downSide.dropEvent += downAction;
+        CardSwipe.defaultOverlay += defaultOverlay;
     }
 
     private void OnDisable()
     {
-        rightSide.overEvent -= rightAction;
-        leftSide.overEvent -= leftAction;
+        rightSide.overEvent -= rightOverlay;
+        rightSide.dropEvent -= rightAction;
+
+        leftSide.overEvent -= leftOverlay;
+        leftSide.dropEvent -= leftAction;
+
+        downSide.overEvent -= downOverlay;
+        downSide.dropEvent -= downAction;
+        CardSwipe.defaultOverlay -= defaultOverlay;
     }
 
     private void startTurn()
@@ -84,16 +95,59 @@ public class GameController : MonoBehaviour
         
     }
 
+    public void rightOverlay()
+    {
+        typeOverlay.color = getColor(currentCard.buffType);
+    }
+
+    public void leftOverlay()
+    {
+        typeOverlay.color = getColor(currentCard.nerfType);
+    }
+
+    public void downOverlay()
+    {
+        typeOverlay.color = getColor(Status.Money);
+    }
+
+    public void defaultOverlay()
+    {
+        typeOverlay.color = getColor(Status.None);
+    }
+
     public void leftAction()
     {
-        notifyCardEffect?.Invoke(currentCard.nerfType, currentCard.buffType, currentCard.nerfValue, currentCard.buffValue);
+        notifyCardEffect?.Invoke(currentCard.nerfType, currentCard.buffType, currentCard.nerfValue, currentCard.buffValue, false);
         nextTurn();
     }
 
     public void rightAction()
-    {
-        notifyCardEffect?.Invoke(currentCard.buffType, currentCard.nerfType, currentCard.buffValue, currentCard.nerfValue);
+    {   
+        notifyCardEffect?.Invoke(currentCard.buffType, currentCard.nerfType, currentCard.buffValue, currentCard.nerfValue, false);
         nextTurn();
+    }
+
+    public void downAction()
+    {
+        notifyCardEffect?.Invoke(currentCard.buffType, currentCard.nerfType, currentCard.buffValue, currentCard.nerfValue, true);
+        nextTurn();
+    }
+
+    private Color getColor(Status type)
+    {
+        switch (type)
+        {
+            case Status.Healthy:
+                return currentProps.healthColor;
+            case Status.Knowledge:
+                return currentProps.knowledgeColor;
+            case Status.Money:
+                return currentProps.moneyColor;
+            case Status.Social:
+                return currentProps.socialColor;
+            default:
+                return Color.white;
+        }
     }
 
     public static int getTotalTurns()
@@ -122,5 +176,6 @@ public enum Status
     Social,
     Money,
     Healthy,
-    Knowledge
+    Knowledge,
+    None
 }
