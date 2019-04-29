@@ -87,8 +87,6 @@ public class GameController : MonoBehaviour
 
         rightButtonContent.sprite = icons[(int)currentCard.buffType];
         leftButtonContent.sprite = icons[(int)currentCard.nerfType];
-        rightButtonContent.color = getColor(currentCard.buffType);
-        leftButtonContent.color = getColor(currentCard.nerfType);
     }
 
     public void nextTurn()
@@ -107,24 +105,25 @@ public class GameController : MonoBehaviour
     public void rightOverlay()
     {
         typeOverlay.sprite = icons[(int)currentCard.buffType];
-        typeOverlay.color = getColor(currentCard.buffType);
+        typeOverlay.color = Color.white;
     }
 
     public void leftOverlay()
     {
         typeOverlay.sprite = icons[(int)currentCard.nerfType];
-        typeOverlay.color = getColor(currentCard.nerfType);
+        typeOverlay.color = Color.white;
     }
 
     public void downOverlay()
     {
         typeOverlay.sprite = icons[(int)Status.Money];
-        typeOverlay.color = getColor(Status.Money);
+        typeOverlay.color = Color.white;
     }
 
     public void defaultOverlay()
     {
-        typeOverlay.color = getColor(Status.None);
+        typeOverlay.sprite = null;
+        typeOverlay.color = Color.clear;
     }
 
     public void leftAction()

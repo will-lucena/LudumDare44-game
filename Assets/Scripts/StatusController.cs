@@ -82,10 +82,6 @@ public class StatusController : MonoBehaviour
     {
         float fillAmount = (float)((float)currentValue / (float)maxValue);
         foreground.fillAmount = fillAmount > 1? 1 : fillAmount;
-        if (foreground)
-        {
-            foreground.color = Color.Lerp(minColor, maxColor, foreground.fillAmount);
-        }
     }
 
     private void setResult()

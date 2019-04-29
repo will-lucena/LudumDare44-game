@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eed3b5955358034abc103440c91a498, type: 3}
   m_Name: Knowledge buff, money nerf
   m_EditorClassIdentifier: 
-  description: "Curso de ingl\xEAs"
+  description: English class
   buffValue: 1
   nerfValue: 1
   buffType: 3

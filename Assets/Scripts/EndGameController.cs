@@ -47,7 +47,7 @@ public class EndGameController : MonoBehaviour
         cash.text = "$ " + (finalCash).ToString("F2");
         total.text = "$ " + (debit.Sum()).ToString("F2");
 
-        Invoke("goToMenu", 7);
+        Invoke("goToMenu", 3);
     }
 
     public void goToMenu()

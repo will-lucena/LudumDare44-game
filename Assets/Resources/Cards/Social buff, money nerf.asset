@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eed3b5955358034abc103440c91a498, type: 3}
   m_Name: Social buff, money nerf
   m_EditorClassIdentifier: 
-  description: Ir ao cinema
+  description: Go to cinema
   buffValue: 1
   nerfValue: 1
   buffType: 0
