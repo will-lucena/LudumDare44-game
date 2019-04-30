@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eed3b5955358034abc103440c91a498, type: 3}
   m_Name: Money buff, social nerf
   m_EditorClassIdentifier: 
-  description: Netflix
+  description: House movie
   buffValue: 1
   nerfValue: 1
   buffType: 1

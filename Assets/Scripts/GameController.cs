@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
         cards = new Stack<Card>();
         while (cards.Count < currentProps.numberOfTurns)
         {
-            cards.Push(array[UnityEngine.Random.Range(1, 100) % currentProps.numberOfTurns]);
+            cards.Push(array[UnityEngine.Random.Range(0, 100) % currentProps.numberOfTurns]);
         }
     }
 
@@ -80,6 +80,7 @@ public class GameController : MonoBehaviour
 
     private void startTurn()
     {
+        defaultOverlay();
         currentCard = cards.Pop();
         descriptionLabel.text = currentCard.description;
         rightButton.sprite = icons[(int)currentCard.buffType];
