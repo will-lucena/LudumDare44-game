@@ -1,6 +1,9 @@
 # Life simulator
 
-Jogo de decisões em cartas feito no modo **Compo** da **Ludum Dare 44** (sozinho, em 48 horas): arraste cada carta para escolher e equilibre os recursos da vida.
+Jogo de decisões em cartas, no estilo Tinder, feito na **Ludum Dare 44** (modo Jam, tema “Your life is currency”) pra provocar hábitos financeiros saudáveis.
+
+- Jogue no navegador: https://will-lucena.com.br/jogos/ld44
+- Página na jam: https://ldjam.com/events/ludum-dare/44/life-simulator
 
 ![Tela do jogo](https://will-lucena.com.br/img/jogos/ld44.jpg)
 
